@@ -11,3 +11,8 @@ struct Node
 	bool  m_IsRed = true;
 	int   m_Value = 0;
 };
+
+struct Tree
+{
+	Node* root = nullptr;
+};
