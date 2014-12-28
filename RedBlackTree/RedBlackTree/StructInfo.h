@@ -4,6 +4,7 @@
 
 struct Node
 {
+	Node* m_Parent = nullptr;
 	Node* m_LeftChild = nullptr;
 	Node* m_RightChild = nullptr;
 
@@ -14,5 +15,9 @@ struct Node
 
 struct Tree
 {
-	Node* root = nullptr;
+	Node* m_Nil = nullptr;
+	Node* m_Root = nullptr;
 };
+
+
+
