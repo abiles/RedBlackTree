@@ -79,6 +79,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Deletion.h" />
     <ClInclude Include="Insertion.h" />
     <ClInclude Include="Rotation.h" />
     <ClInclude Include="stdafx.h" />
@@ -86,6 +87,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Deletion.cpp" />
     <ClCompile Include="Insertion.cpp" />
     <ClCompile Include="RedBlackTree.cpp" />
     <ClCompile Include="Rotation.cpp" />

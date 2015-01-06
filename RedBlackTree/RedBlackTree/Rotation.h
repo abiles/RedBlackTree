@@ -10,6 +10,5 @@ enum rotationError
 	ROTATION_ERROR_END,
 };
 
-
 int leftRotation(Tree* tree, Node* pivotNode);
 int rightRotation(Tree* tree, Node* pivotNode);

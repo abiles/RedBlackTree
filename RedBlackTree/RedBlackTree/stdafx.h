@@ -17,3 +17,4 @@
 #include "StructInfo.h"
 #include "Rotation.h"
 #include "Insertion.h"
+#include "Deletion.h"
