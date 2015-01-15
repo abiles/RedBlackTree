@@ -14,7 +14,13 @@
 
 // TODO: 프로그램에 필요한 추가 헤더는 여기에서 참조합니다.
 
+#include <Windows.h>
+#include <time.h>
+#include <vector>
 #include "StructInfo.h"
 #include "Rotation.h"
 #include "Insertion.h"
 #include "Deletion.h"
+#include "MakingTree.h"
+#include "CheckRBTree.h"
+

@@ -35,7 +35,10 @@ int insertion(Tree* tree, Node* insertNode)
 	insertNode->m_LeftChild = tree->m_Nil;
 	insertNode->m_RightChild = tree->m_Nil;
 
-	insertionFixUp(tree, insertNode);
+	if (insertionFixUp(tree, insertNode) != INSERTION_FIXUP_SUCCESS)
+		return INSERTION_ERROR;
+
+	return INSERTION_SUCCESS;
 }
 
 int insertionFixUp(Tree* tree, Node* fixUpNode)
@@ -69,13 +72,15 @@ int insertionFixUp(Tree* tree, Node* fixUpNode)
 				if (fixUpNode->m_Parent->m_RightChild == fixUpNode)
 				{
 					fixUpNode = fixUpNode->m_Parent;
-					leftRotation(tree, fixUpNode);
+					if (leftRotation(tree, fixUpNode) != ROTATION_SUCCESS)
+						return INSERTION_FIX_UP_ERROR;
 				}
 
 				//case2
 				fixUpNode->m_Parent->m_Color = BLACK;
 				fixUpNode->m_Parent->m_Parent->m_Color = RED;
-				rightRotation(tree, fixUpNode->m_Parent->m_Parent);
+				if (rightRotation(tree, fixUpNode->m_Parent->m_Parent) != ROTATION_SUCCESS)
+					return INSERTION_FIX_UP_ERROR;
 			}
 		}
 		else
@@ -93,16 +98,20 @@ int insertionFixUp(Tree* tree, Node* fixUpNode)
 				if (fixUpNode->m_Parent->m_LeftChild == fixUpNode)
 				{
 					fixUpNode = fixUpNode->m_Parent;
-					rightRotation(tree, fixUpNode);
+					if (rightRotation(tree, fixUpNode) != ROTATION_SUCCESS)
+						return INSERTION_FIX_UP_ERROR;
 				}
 
 				fixUpNode->m_Parent->m_Color = BLACK;
 				fixUpNode->m_Parent->m_Parent->m_Color = RED;
-				leftRotation(tree, fixUpNode->m_Parent->m_Parent);
+				if (leftRotation(tree, fixUpNode->m_Parent->m_Parent) != ROTATION_SUCCESS)
+					return INSERTION_FIX_UP_ERROR;
 			}
 		}
 	}
 
 	tree->m_Root->m_Color = BLACK;
+
+	return INSERTION_FIXUP_SUCCESS;
 }
 

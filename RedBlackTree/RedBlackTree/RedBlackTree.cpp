@@ -6,7 +6,8 @@
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	Node* node;
+	caseChoice();
+
 	return 0;
 }
 

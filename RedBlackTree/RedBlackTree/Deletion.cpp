@@ -45,7 +45,7 @@ int deleteFixUp(Tree* tree, Node* fixUpNode)
 			if (siblingNode->m_Color == RED)
 			{
 				//case 5
-				siblingNode->m_Color == BLACK;
+				siblingNode->m_Color = BLACK;
 				fixUpNode->m_Parent->m_Color = RED;
 				if (leftRotation(tree, fixUpNode->m_Parent) != ROTATION_SUCCESS)
 					return DELETION_FIXUP_ERROR;
@@ -58,7 +58,7 @@ int deleteFixUp(Tree* tree, Node* fixUpNode)
 			{
 				//case 1
 				//sibling의 자식 모두 BLACK
-				siblingNode->m_Color == RED;
+				siblingNode->m_Color = RED;
 				fixUpNode = fixUpNode->m_Parent;
 			}
 			else

@@ -36,6 +36,12 @@
     <ClInclude Include="Deletion.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="MakingTree.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckRBTree.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -51,6 +57,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Deletion.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MakingTree.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckRBTree.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
