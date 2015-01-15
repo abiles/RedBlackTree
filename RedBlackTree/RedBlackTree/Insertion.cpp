@@ -31,7 +31,7 @@ int insertion(Tree* tree, Node* insertNode)
 		parentNode->m_RightChild = insertNode;
 
 	//빨강색으로 해준다
-	insertNode->m_IsRed = true;
+	insertNode->m_Color = RED;
 	insertNode->m_LeftChild = tree->m_Nil;
 	insertNode->m_RightChild = tree->m_Nil;
 
@@ -43,21 +43,21 @@ int insertionFixUp(Tree* tree, Node* fixUpNode)
 	if (tree == nullptr || fixUpNode == nullptr)
 		return INSERTION_INPUT_ERROR;
 
-	while (fixUpNode->m_Parent->m_IsRed)
+	while (fixUpNode->m_Parent->m_Color == RED)
 	{
 		Node* grandParent = fixUpNode->m_Parent->m_Parent;
 		if (grandParent->m_LeftChild == fixUpNode->m_Parent)
 		{
 			Node* uncleNode = fixUpNode->m_Parent->m_Parent->m_RightChild;
 
-			if (uncleNode->m_IsRed)
+			if (uncleNode->m_Color == RED)
 			{
 				//부모가 빨강이고 uncle도 빨강인 경우 
 				//case 1에 해당
 				//부모 uncle을 블랙으로 바꿈
-				fixUpNode->m_Parent->m_IsRed = false;
-				uncleNode->m_IsRed = false;
-				grandParent->m_IsRed = true;
+				fixUpNode->m_Parent->m_Color = BLACK;
+				uncleNode->m_Color = BLACK;
+				grandParent->m_Color = RED;
 			}
 			else
 			{
@@ -73,8 +73,8 @@ int insertionFixUp(Tree* tree, Node* fixUpNode)
 				}
 
 				//case2
-				fixUpNode->m_Parent->m_IsRed = false;
-				fixUpNode->m_Parent->m_Parent->m_IsRed = true;
+				fixUpNode->m_Parent->m_Color = BLACK;
+				fixUpNode->m_Parent->m_Parent->m_Color = RED;
 				rightRotation(tree, fixUpNode->m_Parent->m_Parent);
 			}
 		}
@@ -82,11 +82,11 @@ int insertionFixUp(Tree* tree, Node* fixUpNode)
 		{
 			Node* uncleNode = fixUpNode->m_Parent->m_Parent->m_LeftChild;
 			
-			if (uncleNode->m_IsRed)
+			if (uncleNode->m_Color == RED)
 			{
-				grandParent->m_IsRed = true;
-				fixUpNode->m_Parent->m_IsRed = false;
-				uncleNode->m_IsRed = false;
+				grandParent->m_Color = RED;
+				fixUpNode->m_Parent->m_Color = BLACK;
+				uncleNode->m_Color = BLACK;
 			}
 			else
 			{
@@ -96,13 +96,13 @@ int insertionFixUp(Tree* tree, Node* fixUpNode)
 					rightRotation(tree, fixUpNode);
 				}
 
-				fixUpNode->m_Parent->m_IsRed = false;
-				fixUpNode->m_Parent->m_Parent->m_IsRed = true;
+				fixUpNode->m_Parent->m_Color = BLACK;
+				fixUpNode->m_Parent->m_Parent->m_Color = RED;
 				leftRotation(tree, fixUpNode->m_Parent->m_Parent);
 			}
 		}
 	}
 
-	tree->m_Root->m_IsRed = false;
+	tree->m_Root->m_Color = BLACK;
 }
 

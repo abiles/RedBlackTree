@@ -2,14 +2,19 @@
 
 #pragma once
 
+enum Color
+{
+	BLACK = 0,
+	RED,
+};
+
 struct Node
 {
 	Node* m_Parent = nullptr;
 	Node* m_LeftChild = nullptr;
 	Node* m_RightChild = nullptr;
 
-	//node의 색깔은 red or black이기 때문에 red인지만 확인해서 아니라면 블랙으로 간주
-	bool  m_IsRed = true;
+	bool  m_Color = RED;
 	int   m_Value = 0;
 };
 
