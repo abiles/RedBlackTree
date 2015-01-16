@@ -7,7 +7,7 @@ int printTree(Tree* tree, Node* node)
 
 	if (node == tree->m_Nil)
 	{
-		printf_s("NIL\n");
+	//	printf_s("NIL\n");
 		return 0;
 	}
 
@@ -33,7 +33,7 @@ bool isBinarySearchTree(Tree* tree, Node* node)
 
 	if (node->m_LeftChild != tree->m_Nil)
 	{
-		if (node->m_Value <= node->m_LeftChild->m_Value)
+		if (node->m_Value < node->m_LeftChild->m_Value)
 			return false;
 	}
 

@@ -7,7 +7,7 @@ int transPlant(Tree* tree, Node* oldNode, Node* plantNode)
 
 	if (oldNode->m_Parent == tree->m_Nil)
 		tree->m_Root = plantNode;
-	else if (oldNode = plantNode->m_Parent->m_LeftChild)
+	else if (oldNode = oldNode->m_Parent->m_LeftChild)
 		oldNode->m_Parent->m_LeftChild = plantNode;
 	else
 		oldNode->m_Parent->m_RightChild = plantNode;
@@ -68,7 +68,9 @@ int deleteFixUp(Tree* tree, Node* fixUpNode)
 				{
 					//case3
 					//오른쪽 자식이 BLACK
-					siblingNode->m_LeftChild->m_Color = RED;
+					siblingNode->m_LeftChild->m_Color = BLACK;
+					siblingNode->m_Color = RED;
+
 					if (rightRotation(tree, siblingNode) != ROTATION_SUCCESS)
 						return DELETION_FIXUP_ERROR;
 					siblingNode = fixUpNode->m_Parent->m_RightChild;
@@ -78,6 +80,7 @@ int deleteFixUp(Tree* tree, Node* fixUpNode)
 				siblingNode->m_Color = fixUpNode->m_Parent->m_Color;
 				fixUpNode->m_Parent->m_Color = BLACK;
 				siblingNode->m_RightChild->m_Color = BLACK;
+			
 				if (leftRotation(tree, fixUpNode->m_Parent) != ROTATION_SUCCESS)
 					return DELETION_FIXUP_ERROR;
 
@@ -87,10 +90,12 @@ int deleteFixUp(Tree* tree, Node* fixUpNode)
 		else
 		{
 			Node* siblingNode = fixUpNode->m_Parent->m_LeftChild;
+
 			if (siblingNode->m_Color == RED)
 			{
 				siblingNode->m_Color = BLACK;
 				fixUpNode->m_Parent->m_Color = RED;
+
 				if (rightRotation(tree, fixUpNode->m_Parent) != ROTATION_SUCCESS)
 					return DELETION_FIXUP_ERROR;
 				siblingNode = fixUpNode->m_Parent->m_LeftChild;
@@ -108,13 +113,16 @@ int deleteFixUp(Tree* tree, Node* fixUpNode)
 				{
 					siblingNode->m_RightChild->m_Color = BLACK;
 					siblingNode->m_Color = RED;
+					
 					if (leftRotation(tree, siblingNode) != ROTATION_SUCCESS)
 						return DELETION_FIXUP_ERROR;
 					siblingNode = fixUpNode->m_Parent->m_LeftChild;
 				}
+
 				siblingNode->m_Color = fixUpNode->m_Parent->m_Color;
 				fixUpNode->m_Parent->m_Color = BLACK;
 				siblingNode->m_LeftChild->m_Color = BLACK;
+				
 				if (rightRotation(tree, fixUpNode->m_Parent) != ROTATION_SUCCESS)
 					return DELETION_FIXUP_ERROR;
 				fixUpNode = tree->m_Root;
@@ -136,7 +144,7 @@ int deletion(Tree* tree, Node* deleteNode)
 	bool erasedColor = deleteNode->m_Color;
 	Node* fixUpNode = nullptr;
 
-	if (deleteNode->m_LeftChild = tree->m_Nil)
+	if (deleteNode->m_LeftChild == tree->m_Nil)
 	{
 		fixUpNode = deleteNode->m_RightChild;
 		if (transPlant(tree, deleteNode, deleteNode->m_RightChild) != DELETION_TRANS_SUCCESS)
