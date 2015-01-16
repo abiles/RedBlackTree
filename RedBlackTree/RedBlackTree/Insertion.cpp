@@ -13,10 +13,10 @@ int insertion(Tree* tree, Node* insertNode)
 	while (curNode != tree->m_Nil)
 	{
 		parentNode = curNode;
-		if (insertNode->m_Value < parentNode->m_Value)
-			curNode = parentNode->m_LeftChild;
+		if (insertNode->m_Value < curNode->m_Value)
+			curNode = curNode->m_LeftChild;
 		else
-			curNode = parentNode->m_RightChild;
+			curNode = curNode->m_RightChild;
 	}
 
 	//insertNode의 부모를 설정해준다
@@ -30,10 +30,10 @@ int insertion(Tree* tree, Node* insertNode)
 	else
 		parentNode->m_RightChild = insertNode;
 
-	//빨강색으로 해준다
-	insertNode->m_Color = RED;
 	insertNode->m_LeftChild = tree->m_Nil;
 	insertNode->m_RightChild = tree->m_Nil;
+	//빨강색으로 해준다
+	insertNode->m_Color = RED;
 
 	if (insertionFixUp(tree, insertNode) != INSERTION_FIXUP_SUCCESS)
 		return INSERTION_ERROR;
@@ -48,8 +48,7 @@ int insertionFixUp(Tree* tree, Node* fixUpNode)
 
 	while (fixUpNode->m_Parent->m_Color == RED)
 	{
-		Node* grandParent = fixUpNode->m_Parent->m_Parent;
-		if (grandParent->m_LeftChild == fixUpNode->m_Parent)
+		if (fixUpNode->m_Parent == fixUpNode->m_Parent->m_Parent->m_LeftChild)
 		{
 			Node* uncleNode = fixUpNode->m_Parent->m_Parent->m_RightChild;
 
@@ -60,7 +59,8 @@ int insertionFixUp(Tree* tree, Node* fixUpNode)
 				//부모 uncle을 블랙으로 바꿈
 				fixUpNode->m_Parent->m_Color = BLACK;
 				uncleNode->m_Color = BLACK;
-				grandParent->m_Color = RED;
+				fixUpNode->m_Parent->m_Parent->m_Color = RED;
+				fixUpNode = fixUpNode->m_Parent->m_Parent;
 			}
 			else
 			{
@@ -69,7 +69,7 @@ int insertionFixUp(Tree* tree, Node* fixUpNode)
 				//rightchilde라면 case 3이 된다
 
 				//case 3
-				if (fixUpNode->m_Parent->m_RightChild == fixUpNode)
+				if (fixUpNode == fixUpNode->m_Parent->m_RightChild)
 				{
 					fixUpNode = fixUpNode->m_Parent;
 					if (leftRotation(tree, fixUpNode) != ROTATION_SUCCESS)
@@ -89,13 +89,14 @@ int insertionFixUp(Tree* tree, Node* fixUpNode)
 			
 			if (uncleNode->m_Color == RED)
 			{
-				grandParent->m_Color = RED;
 				fixUpNode->m_Parent->m_Color = BLACK;
 				uncleNode->m_Color = BLACK;
+				fixUpNode->m_Parent->m_Parent->m_Color = RED;
+				fixUpNode = fixUpNode->m_Parent->m_Parent;
 			}
 			else
 			{
-				if (fixUpNode->m_Parent->m_LeftChild == fixUpNode)
+				if (fixUpNode == fixUpNode->m_Parent->m_LeftChild)
 				{
 					fixUpNode = fixUpNode->m_Parent;
 					if (rightRotation(tree, fixUpNode) != ROTATION_SUCCESS)

@@ -40,8 +40,8 @@ int rightRotation(Tree* tree, Node* pivotNode)
 	Node* nodeX = pivotNode->m_LeftChild;
 
 	pivotNode->m_LeftChild = nodeX->m_RightChild;
-	if (pivotNode->m_LeftChild != tree->m_Nil)
-		pivotNode->m_LeftChild->m_Parent = pivotNode;
+	if (nodeX->m_RightChild != tree->m_Nil)
+		nodeX->m_RightChild->m_Parent = pivotNode;
 
 	nodeX->m_Parent = pivotNode->m_Parent;
 

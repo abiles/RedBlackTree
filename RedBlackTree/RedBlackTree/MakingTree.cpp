@@ -22,7 +22,7 @@ bool initNode(Tree* tree, Node* node)
 	if (tree == nullptr || node == nullptr)
 		return false;
 
-	node->m_Value = rand() % TREE_MAX_NUM;
+	node->m_Value = rand() % TREE_MAX_NUM + 1;
 	//node->m_LeftChild = tree->m_Nil;
 	//node->m_RightChild = tree->m_Nil;
 
@@ -40,7 +40,6 @@ int showMenu()
 	printf_s("choise 2 : 1 Insertion\n");
 	printf_s("choise 3 : 7 Insertion\n");
 	printf_s("choise 4 : 10 Insertion 3 Deletion\n");
-	printf_s("choise 5 : 20 Insertion 5 Deletion\n");
 
 	printf_s("exit = 0\n");
 	printf_s("\n");
@@ -63,6 +62,11 @@ void caseChoice()
 
 		switch (choisedCase)
 		{
+		case 0:
+			printf_s("Good Bye~!\n");
+			getchar();
+			getchar();
+			break;
 		case 1:
 			nodeZeroCaseTree();
 			break;
@@ -75,12 +79,9 @@ void caseChoice()
 		case 4:
 			tenInsertionThreeDeletionCaseTree();
 			break;
-		case 5:
-			twentyInsertionFiveDeletionCaseTree();
-			break;
-
 		default:
 			printf_s("It's not correct CaseNum, Please input again\n");
+			getchar();
 			getchar();
 			break;
 		}
@@ -89,7 +90,7 @@ void caseChoice()
 	} while (choisedCase != 0);
 
 
-	printf_s("Good Bye~!\n");
+	
 }
 
 void nodeZeroCaseTree()
@@ -138,9 +139,9 @@ void sevenInsertionCaseTree()
 
 	Tree tree;
 	initTree(&tree);
-	Node nodes[7];
+	Node nodes[5];
 	int countNum = 0;
-	while (countNum < 7)
+	while (countNum < 5)
 	{
 		initNode(&tree, &nodes[countNum]);
 		insertion(&tree, &nodes[countNum]);
@@ -185,6 +186,7 @@ void tenInsertionThreeDeletionCaseTree()
 		++deleteCountNum;
 	}
 
+	printf_s("\n");
 	printf_s("after delete\n");
 	printf_s("\n");
 	printTree(&tree, tree.m_Root);
@@ -197,46 +199,6 @@ void tenInsertionThreeDeletionCaseTree()
 	getchar();
 }
 
-void twentyInsertionFiveDeletionCaseTree()
-{
-	printf_s("~~~ 20 Insertion 5 Deletion Case ~~~\n");
-
-	Tree tree;
-	initTree(&tree);
-
-	Node nodes[10];
-
-	int insertCountNum = 0;
-	int deleteCountNum = 0;
-	while (insertCountNum < 20)
-	{
-		initNode(&tree, &nodes[insertCountNum]);
-		insertion(&tree, &nodes[insertCountNum]);
-		++insertCountNum;
-	}
-
-	printf_s("before delete\n");
-	printf_s("\n");
-	printTree(&tree, tree.m_Root);
-
-	while (deleteCountNum < 5)
-	{
-		deletion(&tree, &nodes[deleteCountNum]);
-		++deleteCountNum;
-	}
-
-	printf_s("after delete\n");
-	printf_s("\n");
-	printTree(&tree, tree.m_Root);
-
-	isRBTree(&tree, tree.m_Root);
-
-	printf_s("press Enter to next step\n");
-
-	getchar();
-	getchar();
-
-}
 
 
 
